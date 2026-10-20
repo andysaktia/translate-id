@@ -1,0 +1,115 @@
+:root{
+  --bg:#fbfcfc; --ink:#1b2a33; --muted:#66798a; --line:#dce3e8;
+  --accent:#0e6e7e; --accent-ink:#fff; --tint:#e6f3f5; --err:#b3261e; --card:#fff; --warn:#a86400;
+  --ui:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --read:'Literata',Georgia,'Times New Roman',serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#10181d;--ink:#e6edf1;--muted:#93a6b3;--line:#2a3943;--accent:#4cc3d5;
+  --accent-ink:#06242a;--tint:#173740;--err:#ff8a80;--card:#172128;--warn:#f0b429}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ui);line-height:1.5;
+  padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+main{max-width:660px;margin:0 auto;padding:40px 22px 96px}
+h1{font-family:var(--read);font-size:clamp(1.8rem,5.5vw,2.5rem);line-height:1.2;margin:0 0 10px;font-weight:600}
+.sub{margin:0;color:var(--muted)}
+.hint{display:flex;align-items:center;gap:8px;margin:18px 0 34px;padding-bottom:18px;
+  border-bottom:1px solid var(--line);font-size:.9rem;color:var(--muted)}
+.hint svg{flex:none;width:18px;height:18px;color:var(--accent)}
+
+/* Indikator kuota: lingkaran progres melayang di kanan bawah */
+.qfloat{position:fixed;z-index:12;right:max(16px,env(safe-area-inset-right,0px));
+  bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;
+  align-items:flex-end;gap:10px;--q:var(--accent)}
+.qfloat[data-level="warn"]{--q:var(--warn)}
+.qfloat[data-level="low"],.qfloat[data-level="out"]{--q:var(--err)}
+.qcard{width:min(300px,calc(100vw - 32px));padding:14px 16px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.16);font-size:.86rem;line-height:1.55;color:var(--muted);
+  opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s}
+.qfloat.open .qcard,.qfloat:has(.qfab:focus-visible) .qcard{opacity:1;visibility:visible;transform:none}
+@media (hover:hover){.qfloat:hover .qcard{opacity:1;visibility:visible;transform:none}}
+.qc-title{margin-bottom:6px;font-size:.92rem;font-weight:600;color:var(--ink)}
+.qcard p{margin:0 0 6px}.qcard p:last-child{margin:0}.qcard strong{color:var(--ink)}
+.qrow{display:flex;align-items:center;gap:8px}
+.qtoast{padding:8px 12px;border:1px solid var(--q);border-radius:999px;background:var(--card);color:var(--q);
+  font-size:.84rem;font-weight:600;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.14);
+  opacity:0;transform:translateX(8px);pointer-events:none;transition:opacity .25s,transform .25s}
+.qtoast.show{opacity:1;transform:none}
+.qfab{position:relative;display:grid;place-items:center;width:48px;height:48px;padding:0;border:0;border-radius:50%;
+  background:var(--card);box-shadow:0 4px 14px rgba(0,0,0,.18);color:var(--ink);font:600 .74rem var(--ui);
+  cursor:pointer;opacity:.8;transition:opacity .2s}
+.qfab:hover,.qfloat.open .qfab{opacity:1}
+.qfab:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.qfab.bump{animation:bump .3s}
+@keyframes bump{50%{transform:scale(1.1)}}
+.qring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.qring circle{fill:none;stroke-width:4}
+.qring .trk{stroke:var(--line)}
+.qring .bar{stroke:var(--q);stroke-linecap:round;stroke-dasharray:125.66;stroke-dashoffset:0;
+  transition:stroke-dashoffset .5s ease,stroke .3s}
+.qfab span{position:relative}
+@media (max-width:640px){.qfab{width:44px;height:44px;font-size:.7rem}}
+
+/* Teks Ibrani (RTL) */
+.en[lang="he"]{font-family:'Frank Ruhl Libre','Times New Roman',serif;font-size:1.28rem;line-height:1.95}
+.sec{margin:2.6em 0 1.6em;padding-top:1.3em;border-top:1px solid var(--line);font-size:.8rem;font-weight:600;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* Artikel: satu aliran teks utuh */
+.en{font-family:var(--read);font-size:1.12rem;line-height:1.85;margin:0}
+.para{margin:0 0 1.5em}
+.nw{white-space:nowrap}
+
+/* Ikon terjemah inline di akhir paragraf */
+.tbtn{display:inline-grid;place-items:center;vertical-align:-.28em;margin-inline-start:.4em;
+  width:1.6rem;height:1.6rem;padding:0;border:0;border-radius:6px;background:transparent;
+  color:var(--muted);cursor:pointer;position:relative;opacity:.7;transition:opacity .15s,background .15s,color .15s}
+.tbtn::after{content:"";position:absolute;inset:-8px}           /* area ketuk lebih luas (±44px) */
+.tbtn svg{width:1.1rem;height:1.1rem}
+.para:hover .tbtn,.tbtn:focus-visible{opacity:1}
+.tbtn:hover{background:var(--tint);color:var(--accent)}
+.tbtn[aria-expanded="true"]{background:var(--accent);color:var(--accent-ink);opacity:1}
+.tbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tbtn[data-state="error"]{color:var(--err);opacity:1}
+.tbtn[disabled]{cursor:progress;opacity:1;color:var(--accent)}
+.spin{width:1rem;height:1rem;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;
+  animation:r .7s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+
+/* Terjemahan: mengembang halus di bawah paragraf, tanpa kotak */
+.trwrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s ease}
+.trwrap.open{grid-template-rows:1fr}
+.trin{overflow:hidden;min-height:0;visibility:hidden;transition:visibility .25s}
+.trwrap.open .trin{visibility:visible}
+.tr{margin:.7em 0 0 .2em;padding:.1em 0 .1em 1em;border-left:2px solid var(--accent);
+  font-family:var(--read);font-size:1.02rem;line-height:1.75;color:var(--ink)}
+.tr.error{border-left-color:var(--err);color:var(--err);font-family:var(--ui);font-size:.94rem}
+
+/* Terjemahkan teks yang diblok */
+#sel{position:absolute;z-index:20;display:none;align-items:center;gap:6px;height:38px;padding:0 12px;
+  border:0;border-radius:999px;background:var(--accent);color:var(--accent-ink);font:600 .88rem var(--ui);
+  cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+#sel svg{width:16px;height:16px}
+#pop{position:absolute;z-index:30;display:none;width:min(340px,calc(100vw - 24px));background:var(--card);
+  border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+#pop .tr{margin:0}
+.pop-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:.82rem;color:var(--muted)}
+.pop-close{border:0;background:none;color:var(--muted);font-size:1.3rem;line-height:1;padding:2px 8px;border-radius:6px;cursor:pointer}
+.pop-close:focus-visible{outline:2px solid var(--accent)}
+[hidden]{display:none!important}
+.tools{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:-14px 0 28px}
+.btn{height:38px;padding:0 16px;border:1px solid var(--accent);border-radius:999px;background:var(--accent);
+  color:var(--accent-ink);font:600 .88rem var(--ui);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn:disabled{opacity:.6;cursor:progress}
+.mini{margin:0;font-size:.84rem;color:var(--muted)}
+.own{margin:0 0 28px}
+.own label{display:block;margin-bottom:8px;font-size:.9rem;color:var(--muted)}
+.own textarea,.own input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card);
+  color:var(--ink);font:1rem/1.6 var(--read)}
+.own textarea{resize:vertical}
+.own textarea:focus-visible,.own input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+footer{margin-top:40px;font-size:.8rem;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.trwrap,.qcard,.qtoast,.qring .bar{transition:none}.qfab.bump{animation:none}.spin{animation-duration:2s}}

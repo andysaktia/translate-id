@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baca &amp; Terjemahkan Per Paragraf</title>
+<meta name="description" content="Baca teks Inggris atau Ibrani dan terjemahkan ke bahasa Indonesia per paragraf, atau cukup blok teksnya. Satu halaman, tanpa instalasi.">
+<meta property="og:title" content="Baca &amp; Terjemahkan Per Paragraf">
+<meta property="og:description" content="Terjemahkan teks Inggris dan Ibrani ke bahasa Indonesia per paragraf, langsung di browser.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Literata:opsz,wght@7..72,400;7..72,600&family=Frank+Ruhl+Libre:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main>
+  <h1>The Quiet Power of Slow Reading</h1>
+  <p class="sub">Contoh artikel Inggris dan Ibrani. Bahasa terdeteksi otomatis</p>
+  <p class="hint" id="hint"></p>
+
+  <div class="tools">
+    <button type="button" class="btn" id="allBtn">Terjemahkan semua</button>
+    <button type="button" class="btn ghost" id="ownBtn" aria-expanded="false" aria-controls="ownBox">Teks sendiri</button>
+    <button type="button" class="btn ghost" id="setBtn" aria-expanded="false" aria-controls="setBox">Pengaturan</button>
+    <button type="button" class="btn ghost" id="demoBtn" hidden>Kembali ke contoh</button>
+    <span class="mini" id="allMsg" role="status"></span>
+  </div>
+  <div class="own" id="ownBox" hidden>
+    <label for="ownText">Tempel teks Inggris atau Ibrani. Pisahkan paragraf dengan baris kosong.</label>
+    <textarea id="ownText" rows="7" dir="auto"></textarea>
+    <div class="tools" style="margin:10px 0 0"><button type="button" class="btn" id="loadBtn">Muat teks</button><span class="mini" id="ownMsg" role="status"></span></div>
+  </div>
+
+  <div class="own" id="setBox" hidden>
+    <label for="emailIn">Email (opsional). Dipakai MyMemory untuk menaikkan kuota harian menjadi 50.000 karakter. Disimpan hanya di browser ini.</label>
+    <input type="email" id="emailIn" autocomplete="email" placeholder="nama@contoh.com">
+    <div class="tools" style="margin:10px 0 0"><button type="button" class="btn" id="saveSet">Simpan</button><span class="mini" id="setMsg" role="status"></span></div>
+  </div>
+
+  <article id="article"></article>
+
+  <footer>Terjemahan oleh MyMemory (gratis, kuota harian terbatas). Hasil mesin bisa kurang akurat, terutama untuk Ibrani klasik.</footer>
+</main>
+
+<div class="qfloat" id="quota" data-level="ok">
+  <div class="qcard" id="qpanel" role="region" aria-label="Detail kuota terjemahan">
+    <div class="qc-title" id="qlabel">Kuota terjemahan hari ini</div>
+    <div id="qdetail"></div>
+  </div>
+  <div class="qrow">
+    <div class="qtoast" id="qtoast" role="status"></div>
+    <button class="qfab" id="qbtn" type="button" aria-expanded="false" aria-controls="qpanel" aria-label="Kuota terjemahan: 100% tersisa">
+      <svg class="qring" viewBox="0 0 48 48" aria-hidden="true"><circle class="trk" cx="24" cy="24" r="20"/><circle class="bar" id="qring" cx="24" cy="24" r="20"/></svg>
+      <span id="qval">100%</span>
+    </button>
+  </div>
+</div>
+
+<button id="sel" type="button"></button>
+<div id="pop" role="dialog" aria-label="Hasil terjemahan">
+  <div class="pop-head"><span id="popTitle">Terjemahan</span><button class="pop-close" aria-label="Tutup" type="button">&times;</button></div>
+  <div id="popBody" class="tr" lang="id" dir="ltr"></div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/text.js"></script>
+<script src="js/cache.js"></script>
+<script src="js/quota.js"></script>
+<script src="js/translate.js"></script>
+<script src="js/reader.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/selection.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
