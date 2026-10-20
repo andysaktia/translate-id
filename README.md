@@ -5,7 +5,7 @@ Baca teks **Inggris** atau **Ibrani** lalu terjemahkan ke **bahasa Indonesia** p
 <!-- Taruh rekaman layar di docs/demo.gif, lalu hapus tanda komentar pada baris di bawah. -->
 <!-- ![Demo](docs/demo.gif) -->
 
-**Demo langsung:** `https://andysaktia.github.io/baca-terjemah/` (ganti `andysaktia` dengan nama akun GitHub-mu setelah GitHub Pages aktif)
+**Demo langsung:** `https://andysaktia.github.io/translate-id/` (ganti `andysaktia` dengan nama akun GitHub-mu setelah GitHub Pages aktif)
 
 ## Fitur
 
